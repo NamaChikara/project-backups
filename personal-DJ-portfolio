@@ -1,0 +1,157 @@
+Hosted at: https://codepen.io/NamaChikara/full/prJeGZ
+Completed on: July 28, 2017
+
+// HTML
+
+<!-- load fonts -->
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+</head>
+
+<div id="box0">
+<div id="box1">
+  <div id="box2">
+    <div id="box3">
+<!-- links to within page -->
+<button><a href="#sched">Shows</a></button>&nbsp;
+<button><a href="#promos">Promos</a></button>&nbsp;
+<button><a href="#listening">Recommendations</a></button>
+<div class="line"></div>
+<!-- text box for site description -->
+<p>Happy surfing, internet friends! 
+  My name is DJ Goodfortune, and your eyes are glued to my promotional page.
+  I produce two radio shows for KBVR, Oregon State University's student-run station.
+  Cold Brew Acid, a joint effort with DJ Klaverwave, is a vinyl-only hour that we curate from our personal collections.
+  The Little Harmonic Broadcast highlights three or four artists that I've been listening to recently.</p>
+<p>Below, you will find broadcast times, hilarious advertisements I make, and exclusive music recommendations!
+  Click on any of the images to find a set list of the music DJ Klaverwave and I played that evening.
+  Your ears will thank you for tuning in to either show &mdash; click the KBVR button at the bottom of this page for online streaming. 
+  Party on!</p>
+<div class="line"></div>
+<!-- show schedule -->
+<div class="row">
+  <a name="sched"></a>
+  <div class="col-xs-6">
+    <h3><b>Cold Brew Acid</b></h3>
+    <h5>TBA September 2017</h5>
+  </div>
+  <div class="col-xs-6">
+    <h3><b>The Little Harmonic Broadcast</b></h3>
+    <h5>TBA September 2017</h5>
+  </div>
+</div>
+<div class="line"></div>
+<div class="line-space"></div>
+<!-- show promos -->
+<div class="row" id="promo-img1">
+  <a name="promos">
+  <div><a href="http://spinitron.com/public/index.php?station=kbvr&month=Apr&year=2017&playlist=19983#here"><img src="http://tinyurl.com/CBApromo42717" alt="4.27.17"></img></a></div>
+  <div><a href="http://spinitron.com/public/index.php?station=kbvr&month=Apr&year=2017&playlist=18710#here"><img src="http://tinyurl.com/CBApromo22817" alt="2.28.17"></img></a></div>
+  <div><a href="http://spinitron.com/public/index.php?station=kbvr&month=Apr&year=2017&playlist=17936#here"><img src="http://tinyurl.com/CBApromo13117" alt="1.31.17"></img></a></div>
+</div>
+<div class="row" id="promo-img2">
+  <div><a href="http://spinitron.com/public/index.php?station=kbvr&month=Apr&year=2017&playlist=16355#here"><img src="http://tinyurl.com/CBApromo102016" alt="10.20.16"></img></a></div>
+  <div><a href="http://spinitron.com/public/index.php?station=kbvr&month=Apr&year=2017&playlist=16225#here"><img src="http://tinyurl.com/CBApromo101316" alt="10.13.16"></img></a></div>
+  <div><a href="http://spinitron.com/public/index.php?station=kbvr&month=Apr&year=2017&playlist=15947#here"><img src="http://tinyurl.com/CBApromo92916" alt="9.29.16"></img></a></div>
+</div>
+<div class="row" id="promo-img3">
+  <div><a href="http://spinitron.com/public/index.php?station=kbvr&month=Apr&year=2017&playlist=14887#here"><img src="http://tinyurl.com/CBApromo60116" alt="6.01.16"></img></a></div>
+  <div><img src="http://tinyurl.com/CBApromo52516" alt="5.25.16"></img></div>
+  <div><img src="http://tinyurl.com/CBApromo51816" alt="5.18.16"></img></div>
+</div>
+<!-- music recommendations -->
+<div class="line"></div>
+<a name="listening"></a>
+    <ul>
+      <span><b>"The best recommendations this side of the Milky Way"</b> &mdash; Dan the Man</span>
+      <li>Vince Staples&mdash;<em>Big Fish Theory</em>&ensp;(2017)</li>
+      <li>Fleet Foxes&mdash;<em>Crack-Up</em>&ensp;(2017)</li>
+      <li>DJ Jazzy Jeff&mdash;<em>The Magnificent</em>&ensp;(2002)</il>
+      <li>Billy Childs&mdash;<em>Map to the Treasure: Reimagining Laura Nyro</em>&ensp;(2014)</li>
+      <li>Cymande&mdash;<em>Cymande</em>&ensp;(1972)</li>
+    </ul>
+<!-- social media links -->
+<button><a href="http://www.orangemedianetwork.com/kbvr_fm/">KBVR</a></button>&nbsp;
+<button><a href="http://spinitron.com/public/index.php?station=kbvr&month=Apr&year=2017&djuid=256#here">Spinitron</a></button>&nbsp;
+<a name="listening">
+<button><a href="https://open.spotify.com/user/zacharybarry">Spotify</a></button>
+
+</div>
+</div>
+</div>
+</div>
+
+/CSS
+
+body {
+  background-color: #0c3943;
+  font-family: "Open Sans Condensed", serif;
+  font-size: 12px;
+}
+img {
+  border-radius: 10px;
+  height: auto;
+  width: 100%;
+  padding: 5px;
+}
+p {
+  font-size: 18px;
+  font-size: 2.2vw;
+}
+h3 {
+  font-size: 36px;
+  font-size: 3.5vw;
+}
+h5 {
+  font-size: 18px;
+  font-size: 2.2vw;
+  padding-bottom: 10px;
+}
+span {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+ul { 
+  font-size: 28px;
+  font-size: 2.8vw;
+  padding-top: 10px;
+}
+li {
+  font-size: 24px;
+  font-size: 2.4vw;
+}
+button {
+  font-size: 12px;
+  font-size: 1.5vw;
+}
+.line {
+  background-color: #0c3943;
+  height: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+#box0, #box1, #box2, #box3 {
+  border-radius: 10px; 
+  padding: 15px;
+}
+#box0 {
+  background-color: #0c3943;
+}
+#box1 {
+  background-color: #25ae5c;
+}
+#box2 {
+  background-color: #f7475b;
+}
+#box3 {
+  background-color: #fec8bc;
+}
+
+/* Javascript */
+
+$("#promo-img1, #promo-img2, #promo-img3").find("div").addClass("col-xs-12 col-sm-4");
+$("promo-ing").find("img").addClass("img-responsive center-block promo");
+$("h3, h5, h6").addClass("text-center");
+$("button").addClass("float-left");
+$("span").addClass("text-center");
+
