@@ -1,0 +1,153 @@
+Hosted at: https://codepen.io/NamaChikara/full/qXrGEZ
+
+// HTML
+
+<head>
+  <!-- Font Awesome CDN for Twitter logo on tweet button -->
+  <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">
+  <!-- Google fonts for quote and author -->
+  <link href="https://fonts.googleapis.com/css?family=Just+Another+Hand|Raleway" rel="stylesheet">
+</head>
+<!-- quote box created via bootstrap -->
+<div class="container">
+  <div class="row">
+    <!-- empty columns to left of quote -->
+    <div id="quote-left"></div>
+    <!-- div which will contain the quote -->
+    <div id="quote-center">Click the "New Quote" button to get started!
+    </div>
+  </div>
+</div>
+<!-- author box created via bootstrap -->
+<div class="container">
+  <div class="row">
+    <!-- empty columns to left of quote -->
+    <div id="author-left"></div>
+    <!-- div which will contain the quote -->
+    <div id="author-center">
+    </div>
+  </div>
+</div>
+<!-- buttons laid out using bootstrap columns -->
+<div class="container">
+  <div class="row" id="button-row">
+    <!-- empty columns to left of buttons -->
+    <div id="butt-left"></div>
+    <!-- centered columns containing buttons -->
+    <div id="butt-center">
+      <!-- Tweet button sourced via Twitter developer tools -->
+      <div class="float-left" id="tweet-container"></div>
+      <!-- clicking this button generates a quote -->
+      <div class="float-right">
+        <button id="quote">New Quote</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- allows Twitter button to work -->
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+// CSS
+
+body {
+  background: #8da159;
+  padding: 100px 30px 0 30px;
+}
+button {
+  
+  background: #b0deaf;
+}
+#button-row {
+  padding-top: 10px;
+}
+#quote-center {
+  background: #f6f7d5;
+  border-radius: 20px 20px 20px 20px;
+  font-family: 'Just Another Hand', cursive;
+  font-size: 40px;
+}
+#author-center {
+  background: #b0deaf;
+  border-radius: 0 0 20px 20px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 30px;
+}
+
+/* Javascript */
+
+// specify bootstrap row construction
+$("#quote-left, #author-left, #butt-left").addClass("col-sm-1 col-lg-3");
+$("#quote-center, #author-center, #butt-center").addClass("col-xs-12 col-sm-10 col-lg-6 text-center");
+// modify buttons
+$("button").addClass("btn");
+
+// Quote and Tweet functions 
+$(document).ready(function() {
+  // if button is clicked...
+  $("#quote").on("click", function() {
+    // retrieve quote from forismatic.com using https proxy
+    $.getJSON("https://cors-anywhere.herokuapp.com/http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en", function(json){
+    // retrieve quote and author from the JSON data
+    var quote="\"";
+    quote += json.quoteText += "\"";
+    $("#quote-center").html(quote);
+    var author = json.quoteAuthor;
+    if (author.length===0) {author="Source Unknown";}
+    // change border radius of quote box to match author box
+    $("#quote-center").css('border-radius','20px 20px 0px 0px');
+    // update button color to match quote color
+    $("button").css("background","#f6f7d5");
+    // post in author box
+    $("#author-center").html(author);
+    // generate a Tweet button with quote content
+    createTweet(quote, author); 
+    });
+  });
+});
+// generates Tweet button after quote is generated
+function createTweet(quote,author) {
+  var html="";
+  html += "<a class=\"twitter-share-button\" href=\"https://twitter.com/intent/tweet?text=";
+  html += quoteTweet(quote, author);
+  html += "&hashtags=";
+  html += author.replace(/\s(?=\w)/g,"");
+  html += "\" data-size=\"large\"> <button style=\"background:#f6f7d5\" class=\"btn\">";
+  html += "<i class=\"fa fa-twitter\" aria-hidden=\"true\"></i></button> </a>";
+  $("#tweet-container").html(html);
+}
+// reduces quote length so that Tweet is <= 140 characters
+function quoteTweet(quote, name) {
+  hashLength = name.length + 2; /* _#authorName */
+  if (quote.length < 140 - hashLength) {
+        /* changes special characters to %ASCII for url */
+        return encodeURIComponent(quote);
+  } else {
+      /* edit so quote is truncated with ... and the 
+      resulting tweet is 140 characters including the
+      hashtaged author name */
+      var letters = quote.split("");
+      var cutQuote = "";
+      for (var i=0; i < 140 - hashLength - 5; i++) {
+        cutQuote += letters[i];
+      } 
+      cutQuote += "...\"";
+      return encodeURIComponent(cutQuote);
+    }
+}
+
+/*  alternative form of AJAX request to the api
+var quote = document.getElementById("quote");
+var quoteContainer = document.getElementById("quote-center");
+
+quote.addEventListener("click", function() {
+  var ourRequest = new XMLHttpRequest();
+  ourRequest.open('GET','https://cors-anywhere.herokuapp.com/http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en');
+  ourRequest.onload = function() {
+    console.log(ourRequest.responseText);
+    var ourData = JSON.parse(ourRequest.responseText);
+    console.log(ourData.quoteText)
+    quoteContainer.insertAdjacentHTML('beforeend',ourData.quoteText);
+  };
+  ourRequest.send();
+});
+*/
