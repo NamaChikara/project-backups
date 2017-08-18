@@ -1,0 +1,144 @@
+Hosted at: https://codepen.io/NamaChikara/full/LjEoOW
+Completed on July 26, 2017
+
+// HTML
+
+<!-- <script>
+  $(document).ready(function() {
+  $("h1").addClass("text-center");
+  });
+</script> -->
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
+</head>
+
+<div class="container-fluid">
+  <div id="box1">
+    <div id="box2">
+      <div id="box3">
+        <h1 class="text-center"><b>John Steinbeck</b></h1>
+        <p class="text-center"><em>"And now that you don't have to be perfect, you can be good."</em></p>
+        <div id="box4">
+        <img class="img-responsive center-block" src="http://irishamerica.com/wp-content/uploads/2007/06/John-Steinbeck.jpg" alt="Picture of John Steinbeck"></img>
+        <h4 class="text-center">John Ernst Steinbeck, Jr. accepted the Nobel Prize for Literature in 1962.</h4>
+        <div class="center-block" id="line1"></div>
+        
+<div class="row" id="list-box">
+  <div class="col-xs-1 col-md-2"></div>
+  <div class="col-xs-5 col-md-4">
+      <ul>
+        <p><b>Novels</b></p>
+        <li><b>1929</b>  Cup of Gold</li>
+        <li><b>1933</b>  To a God Unknown</li>
+        <li><b>1935</b>  Tortilla Flat</li>
+        <li><b>1936</b>  In Dubious Battle</li>
+        <li><b>1939</b>  The Grapes of Wrath</li>
+        <li><b>1942</b>  The Moon Is Down</li>
+        <li><b>1945</b>  Cannery Row</li>
+        <li><b>1947</b>  The Wayward Bus</li>
+        <li><b>1952</b>  East of Eden</li>
+        <li><b>1954</b>  Sweet Thursday</li>
+        <li><b>1957</b>  The Short Reign of Pippin IV: A Fabrication</li>
+        <li><b>1961</b>  The Winter of Our Discontent</li>
+      </ul>
+      <ul>
+        <p><b>Short Stories</b></p>
+        <li><b>1932</b>  The Pastures of Heaven</li>
+        <li><b>1938</b>  The Long Valley</li>
+      </ul>
+  </div>
+  <div class="col-xs-5 col-md-4">
+      <ul>
+        <p><b>Novelle</b></p>
+        <li><b>1933</b>  The Red Pony</li>
+        <li><b>1937</b>  Of Mice and Men</li>
+        <li><b>1947</b>  The Pearl</li>
+        <li><b>1950</b>  Burning Bright</li>
+      </ul>
+      <ul>
+        <p><b>Non-Fiction</b></p>
+        <li><b>1941</b>  Sea of Cortez: A Leisurely Journal of Travel and Research</li>
+        <li><b>1942</b>  Bombs Away: The Story of a Bomber Team</li>
+        <li><b>1948</b>  A Russian Journal</li>
+        <li><b>1951</b>  The Log from the Sea of Cortez</li>
+        <li><b>1958</b>  Once There Was A War</li>
+        <li><b>1962</b>  Travels with Charley: In Search of America</li>
+        <li><b>1966</b>  America and Americans</li>
+      </ul>
+  </div>
+  <div class="col-xs-1 col-md-2"></div>
+</div>    
+      
+        <div class="center-block" id="line2"></div>
+        <h4 class="text-center">To read more about John Steinbeck, visit his <a href="https://en.wikipedia.org/wiki/John_Steinbeck" target="_blank">Wikipedia page</a>.</h4>
+        <h3 class="text-center">Page created by Zachary T. Barry on 26 July 2017.</h3>
+      </div>
+      </div>
+  </div>
+  </div>
+</div>
+
+// CSS
+
+body {
+  margin-top: 15px;
+  background-color: #000;
+  font-family: 'Josefin Slab',serif;
+}
+
+h1 {
+  font-size: 48px;
+}
+
+p {
+  font-size: 24px;
+}
+
+h3 {
+  text-align: center;
+  font-size: 12px;
+}
+
+#box1 {
+  background-color: #951718;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+#box2 {
+  background-color: #81924E;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+#box3 {
+  background-color: #FECF67;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+#box4 {
+  background-color: white;
+  border-radius: 20px;
+  padding: 10px 10px 10px 10px;
+}
+
+#image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#line1, #line2 {
+  background-color: #FECF67;
+  height: 2px;
+  margin-left: 80px;
+  margin-right: 80px;
+}
+
+#list-box {
+  margin-top: 10px;
+}
+
+
