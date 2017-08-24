@@ -1,0 +1,230 @@
+Hosted at: https://codepen.io/NamaChikara/full/OjQZbQ
+Completed on August 23, 2017
+
+// HTML
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+</head>
+
+<body>
+  <div class="text-box">
+    <div id="location">
+      <h1></h1>
+    </div>
+    <div id="image"></div>
+    <div>
+      <h2></h2>
+      <button class="astext" id="celsius"></button>
+      <button class="astext" id="fahrenheit">  </button>
+    </div>
+  </div>
+  <div class="wunderground-box">
+    <a href="https://www.wunderground.com/">
+      <img class="wunderground" src="http://icons.wxug.com/logos/PNG/wundergroundLogo_4c_horz.png" alt="Weather Underground Logo"></img>
+    </a>
+  </div>
+  <div class="credit-box">
+    Created by <a href="https://codepen.io/NamaChikara/">Zachary T. Barry</a>
+  </div>
+</body>
+
+/* CSS */
+
+body {
+  font-family: 'Raleway', sans-serif;
+  margin-top: 100px;
+}
+div {
+  text-align: center;
+}
+/* make temperature buttons text-only */
+.astext {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+}
+/* place author credits */
+.credit-box {
+  background-color: white;
+  border-radius: 5px;
+  bottom: 0;
+  height: auto;
+  padding: 0 10px 0 10px;
+  position: absolute;
+  left: 25px; 
+  width: auto;
+}
+/* box that weather info appears in */
+.text-box {
+  background-color: black;
+  border-radius: 10px;
+  color: white;
+  opacity: 0.5;
+  left: 50%;
+  margin-left: -150px;
+  padding: 10px 0 10px 0;
+  position: absolute;
+  width: 300px;
+}
+/* make Weather Underground logo stand out */
+.wunderground-box {
+  background-color: black;
+}
+/* place and size Weather Underground logo */
+.wunderground {
+  background-color: white;
+  border-radius: 5px;
+  bottom: 0;
+  height: auto;
+  padding: 0 10px 0 10px;
+  position: absolute;
+  right: 25px; 
+  width: 150px;
+}
+/* initial temperature text colors */
+#celsius {
+  color: grey;
+}
+#fahrenheit {
+  color: white;
+  padding-left: 5px;
+}
+
+/* Javascript */
+
+$(document).ready(function() {
+/* get user coordinates */
+if (navigator.geolocation) {
+/* gelocation is available */
+  navigator.geolocation.getCurrentPosition(function(position) {
+      var userPosition = [
+        position.coords.latitude,
+        position.coords.longitude
+      ];
+      getWeather(userPosition);
+    });
+  } else {
+    $("h1").html('Please allow browser to access location, then reload.');
+    $(".text-box").css("padding", "10px 10px 10px 10px");
+  }
+
+/* pull API data from Weather Underground */
+function getWeather(userPosition) {
+  /* AJAX request for weather data */
+    var myRequest = new XMLHttpRequest();
+    /* grab data based on coordinates */
+    myRequest.open('GET', 'https://cors.now.sh/http://api.wunderground.com/api/cc34302ff80d0bf7/conditions/q/' + userPosition[0] + ',' + userPosition[1] + '.json');
+    /* retrieve the data */
+    myRequest.onload = function() {
+      var data = JSON.parse(myRequest.responseText);
+    /* collect data */
+      var weather = data.current_observation;
+      console.log(weather);
+    /* location */
+      var city = weather.display_location.city;
+      var state = weather.display_location.state;
+      var country = weather.display_location.country;
+      if (country == 'US') {
+        $("h1").html(city + ', ' + state);
+      } else {
+        $("h1").html(city + ', ' + country);
+      }
+    /* temperature */
+      /* (sometimes only the feelslike data is available, not index) */
+      if (weather.heat_index_c != 'NA') {
+        $("#celsius").html(weather.heat_index_c + " C");
+      } else {
+        $("#celsius").html(weather.feelslike_c + " C");
+      }
+      if (weather.heat_index_f != 'NA') {
+        $("#fahrenheit").html(weather.heat_index_f + " F");
+      } else {
+        $("#fahrenheit").html(weather.feelslike_f + " F");
+      }
+    /* observed weather pattern */
+      editIcon(weather.icon, weather.icon_url);
+    };
+    myRequest.send();
+  }
+});
+/* toggle temperature values on click */
+$("#celsius").on("click", function() {
+  $("#celsius").css("color", "white");
+  $("#fahrenheit").css("color", "grey");
+});
+$("#fahrenheit").on("click", function() {
+  $("#celsius").css("color", "grey");
+  $("#fahrenheit").css("color", "white");
+});
+/* replace provided weather icon with stock image */
+function editIcon(pattern, url) {
+  /* if no pattern is given */
+  if (pattern == 'NA') {
+    pattern = 'Weather Icon NA';
+    url = '#';} else {
+      /* url is of form https://icons.wxug.com/i/c/d/partlysunny.gif 
+      or https://icons.wxug.com/i/c/d/nt_partlysunny.gif, we want to 
+      retrive the patternID, partlysunny. sometimes http is used
+      instead of https, that's why the switch function is present
+      */
+      switch (url.slice(0,5)) {
+        case 'https':
+          if (url.slice(29,31) == 'nt') {
+            var patternID = url.slice(32, -4);
+          } else {
+            var patternID = url.slice(29, -4);
+          }
+          break;
+        case 'http:':
+          if (url.slice(28,30) == 'nt') {
+            var patternID = url.slice(31, -4);
+          } else {
+            var patternID = url.slice(28, -4);
+          }
+          break;
+      }
+      /* select appropriate url for patternID */
+      switch(patternID) {
+        case 'chancerain': case 'rain': case 'chancesleet': case 'sleet':
+          url = 'http://i.imgur.com/TcPVreU.jpg?2';
+          break;
+        case 'sunny':
+          url = 'http://i.imgur.com/a3uB9Ib.jpg';
+          break;
+        case 'mostlysunny': case 'partlycloudy':
+          url = 'http://i.imgur.com/ivSzQzV.jpg';
+          console.log("OH");
+          break;
+        case 'partlysunny': case 'mostlycloudy':
+          url = 'http://i.imgur.com/T24hrWa.jpg';
+          break;
+        case 'clear':
+          url = 'http://i.imgur.com/98lbZe4.jpg';
+          break;
+        case 'chancestorms': case 'tstorms': case 'cloudy':
+          url = 'http://i.imgur.com/e3sO4Uc.jpg';
+          break;
+        case 'foggy':
+          url = 'http://i.imgur.com/BOLMuBh.jpg';
+          break;
+        case 'hazy':
+          url = 'http://i.imgur.com/5sHEz49.jpg';
+          break;
+        case 'chancesnow': case 'snow': case 'chanceflurries': case 'flurries': 
+          url = 'http://i.imgur.com/7bO5HTc.jpg';
+          break;
+      }
+      /* sometimes http is used for wunderground icons, sometimes https */
+      if (url.slice(8,13) == 'icons' || url.slice(7,12) == 'icons') {
+        /* no change occured - icon is not on url list */
+        $("#image").html("<img src='" + url + "' alt='" + pattern + "'></img>");
+      } else {
+        /* matching background image available */
+        document.body.style.background = "url(" + url + ")"; 
+        document.body.style.backgroundSize = "cover";
+      }
+    } 
+}
