@@ -7,7 +7,7 @@ Completed on August 20, 2017
 <!-- search bar and buttons -->
   <div id="searchBar">
     <button id="random" title="Visit a random article!"></button>
-  <h2 id="input">Start typing to search.</h2>
+  <input type="text" placeholder="Start typing." id="input"></input>
     <button id="feel-lucky" title="Take a chance on the first result."></button>
   </div>
 <!-- containers for results -->
@@ -83,11 +83,11 @@ Completed on August 20, 2017
 /* allows buttons to appear as images */
 button {
   background-color: white;
-  background-size: 40px 40px;
+  background-size: 100%;
   border: none;
   cursor: pointer;
-  height: 40px;
-  width: 40px;
+  height: 4vw;
+  width: 4vw;
 }
 /* holds the results */
 .container {
@@ -128,10 +128,16 @@ h4 {
   margin: 10px;
 }
 /* where search input is collected */
-#input {
+input {
   display: inline;
   padding: 0 20px 0 20px;
-  color: grey;
+  color: black;
+  font-size: 4vw;
+  border: none;
+  /* min-width: 100px; */
+  width: 30vw;
+  /* max-width: 300px; */
+  text-align: center;
 }
 /* button takes user to random page */
 #random {
@@ -146,7 +152,7 @@ h4 {
   margin-top: 10px;
   padding-top: 15px;
   position: relative;
-  min-width: 800px;
+  min-width: 300px;
   width: 80%;
   max-width: 1500px;
 }
@@ -164,39 +170,42 @@ $(document).ready(function() {
   /* type search text, then 'enter' key - provide user with first 10 results */
   // add text to search field
   document.addEventListener("keypress", function(key) {
-    if (47 < key.which < 112) {
-      var inputField = document.getElementById("input");
-      // if no text has been entered yet
-      if (inputField.innerHTML == "Start typing to search.") {
-        inputField.innerHTML = String.fromCharCode(key.which);
-        inputField.style.color = "black";
-      } else {
-        // add to the existing string
-        inputField.innerHTML += String.fromCharCode(key.which);
+    // if input is active, it is already handling the text editing
+    if (document.activeElement.tagName!="INPUT") {
+      if (47 < key.which < 112) {
+        var inputField = document.getElementById("input");
+        // if no text has been entered yet
+        if (inputField.value == "Start typing to search.") {
+          inputField.value = String.fromCharCode(key.which);
+          inputField.style.color = "black";
+        } else {
+          // add to the existing string
+          inputField.value += String.fromCharCode(key.which);
+        }
       }
-    } 
+    }
   });
   // prevent space bar from scrolling; only add space if text already entered
   window.addEventListener('keydown', function(e) {
     if(e.keyCode == 32) {
       e.preventDefault();
-      if (document.getElementById("input").innerHTML != "Start typing to search.") {
-        document.getElementById("input").innerHTML += " "; 
+      if (document.getElementById("input").value != "Start typing to search.") {
+        document.getElementById("input").value += " "; 
       }
     }
   });
   // delete last character from search field, execute search on enter
   document.addEventListener("keydown", function(key) {
     if (key.keyCode === 8) {
-      document.getElementById("input").innerHTML = document
+      document.getElementById("input").value = document
         .getElementById("input")
-        .innerHTML.slice(0, -1);
+        .value.slice(0, -1);
     } else if (key.keyCode === 13) {
       // 13 corresponds to "enter"
-      var searchValue = document.getElementById("input").innerHTML;
+      var searchValue = document.getElementById("input").value;
       if (searchValue === "") {
         // search must be nonempty
-        document.getElementById("input").innerHTML = "Please enter some text";
+        document.getElementById("input").value = "Please enter some text";
       } else {
         getResults(searchValue); // display the first 10 API results
         // shift search bar upwards
@@ -475,7 +484,7 @@ $(document).ready(function() {
   }
   // type search text, then 'feel-lucky' click - send user to first result
   document.getElementById("feel-lucky").addEventListener("click", function() {
-    var luckyText = document.getElementById("input").innerHTML; // obtain search value
+    var luckyText = document.getElementById("input").value; // obtain search value
     if (luckyText !== "") {
       // search must be nonempty
       luckySearch(luckyText); // open first API search result
@@ -516,3 +525,4 @@ $(document).ready(function() {
     }
   }
 });
+
